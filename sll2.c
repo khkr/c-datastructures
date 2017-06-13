@@ -1,5 +1,5 @@
-#include<stdio.h>
-#include<stdlib.h>
+#include <stdio.h>
+#include <stdlib.h>
 int c=0;
 struct node
 {
@@ -11,44 +11,56 @@ void add(int num)
 {
     struct node *temp,*right,*left;
     temp=(struct node *)malloc(sizeof(struct node));
+	
+	//We are defining the temp to alleviate any errors in future so we are also mentioning that temp->next = null;
     temp->data=num;
+    temp->next= NULL;
+	
+	//if head is null temp is going to be the first element
     if(head==NULL)
     {
-        temp->next=NULL;
         head=temp;
         c++;
     }
-    else if(head->next==NULL)
+	//in this case if we have only one element i.e head and we want to add other element
+	//eg: existing: 5, input:3
+    else if (num<head->data)
     {
-        if(head->data<=num)
-        {
-            temp->next=NULL;
-            head->next=temp;
-            c++;
-        }
-        else
-        {
-            head->next=NULL;
-            right=head;
-            head=temp;
-            head->next=right;
-            c++;
-        }
-
-    }
-    else
-    {
-        right=head;
-        while(right->data<num&&right->next!=NULL)
-        {
-            printf("")
-            left=right;
-            right=right->next;
-        }
-        left->next=temp;
-        temp->next=right;
+        temp->next = head;
+        head = temp;
         c++;
     }
+	
+    else
+    {
+        left = head;
+        right = head->next;
+	    
+        while(right!=NULL&&num>right->data)
+        {
+            left = right;
+            right = right->next;
+        }
+	    //if after checking right happened to be null 
+	    //it happens in scenarios like
+	    //existing: 1 2 3 , input : 5
+        if(right==NULL)
+        {
+            left->next=temp;
+            
+        }
+	    
+	    //This is for the rest of the scenarios like existing: 1 3 , input: 2
+
+        else{
+            temp->next = right;
+            left->next = temp;
+        
+        }
+	    //we have to add it for every input
+        c++;
+
+        }
 
 }
 void display()
