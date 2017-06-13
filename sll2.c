@@ -11,11 +11,11 @@ void add(int num)
 {
     struct node *temp,*right,*left;
     temp=(struct node *)malloc(sizeof(struct node));
-	
+
 	//We are defining the temp to alleviate any errors in future so we are also mentioning that temp->next = null;
     temp->data=num;
     temp->next= NULL;
-	
+
 	//if head is null temp is going to be the first element
     if(head==NULL)
     {
@@ -30,32 +30,32 @@ void add(int num)
         head = temp;
         c++;
     }
-	
+
     else
     {
         left = head;
         right = head->next;
-	    
+
         while(right!=NULL&&num>right->data)
         {
             left = right;
             right = right->next;
         }
-	    //if after checking right happened to be null 
+	    //if after checking right happened to be null
 	    //it happens in scenarios like
 	    //existing: 1 2 3 , input : 5
         if(right==NULL)
         {
             left->next=temp;
-            
+
         }
-	    
+
 	    //This is for the rest of the scenarios like existing: 1 3 , input: 2
 
         else{
             temp->next = right;
             left->next = temp;
-        
+
         }
 	    //we have to add it for every input
         c++;
@@ -87,12 +87,60 @@ void display()
 			printf("\n");
 	}
 }
+void deleteByValue(int value)
+{
+	if(head==NULL)
+	{
+		printf("linked list is empty");
+
+			printf("\n");
+	}
+	else
+	{
+
+	struct node *right,*t,*left;
+	int confirm=0;
+	if( head->data == value)
+	{
+		t=head;
+		head=head->next;
+		free(t);
+		confirm=1;
+		c--;
+		printf("%d is deleted successfully\n",value);
+	}
+	else
+	{
+		right=head;
+
+		while(right->next!=NULL)
+		{
+			left=right;
+			right=right->next;
+			if(right->data==value)
+			{
+				t=right;
+				left->next=right->next;
+				free(t);
+				t=NULL;
+                printf("%d is deleted successfully\n\n",value );
+                confirm=1;
+                c--;
+                break;
+			}
+		}
+	}
+	if(confirm==0)
+		printf("\n%d didn't found\n\n",value);
+	}
+
+}
 int main()
 {
 	int num,choice=1;
 	do
 	{
-	printf("1.add \n2.display\n3.exit\n");
+	printf("1.add \n2.display\n3.exit\n4.delete by value\n");
 
 		scanf("%d",&choice);
 		switch(choice)
@@ -110,9 +158,11 @@ int main()
 			case 3:
 			break;
 
-			/*case 4:
-			delete();
-			break;*/
+			case 4:
+			printf("Enter a number to delete\n");
+			scanf("%d",&num);
+			deleteByValue(num);
+			break;
 
 			default:
 			printf("Enter a valid number");
