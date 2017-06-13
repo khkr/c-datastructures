@@ -91,7 +91,7 @@ void deleteByValue(int value)
 {
 	if(head==NULL)
 	{
-		printf("linked list is empty");
+		printf("linked list is empty.Unable to delete");
 
 			printf("\n");
 	}
@@ -135,12 +135,48 @@ void deleteByValue(int value)
 	}
 
 }
+
+void deleteByPosition(int position)
+{
+	if(head==NULL)
+	{
+		printf("linked list is empty.Unable to delete\n");
+		return;
+	}
+
+	if(position ==1)
+	{
+		struct node *t;
+		t=head;
+		head=head->next;
+		printf("%d is deleted successfully\n",t->data);
+		free(t);
+		c--;
+		return;
+	}
+
+
+	struct node *right,*left;
+	right=head;
+	int i;
+
+	for( i=1;i<position;i++)
+	{
+		left=right;
+		right=right->next;
+	}
+	printf("%d is deleted\n",right->data);
+	left->next=right->next;
+	free(right);
+	c--;
+    return;
+}
 int main()
 {
 	int num,choice=1;
 	do
 	{
-	printf("1.add \n2.display\n3.exit\n4.delete by value\n");
+	printf("1.add \n2.display\n3.exit\n4.delete by value\n5.Delete by position\n");
 
 		scanf("%d",&choice);
 		switch(choice)
@@ -163,6 +199,12 @@ int main()
 			scanf("%d",&num);
 			deleteByValue(num);
 			break;
+
+			case 5:
+                printf("Enter the position to delete\n");
+                scanf("%d",&num);
+                deleteByPosition(num);
+                break;
 
 			default:
 			printf("Enter a valid number");
