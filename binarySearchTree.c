@@ -13,25 +13,43 @@ void inorderrec(struct node *root);
 
 void insert(int key)
 {
-	insertrec(root,key);
-}
-
-void insertrec(struct node *root,int key)
-{
+	struct node *parent,*temp;
+	temp=(struct node*)malloc(sizeof(struct node));
+	temp->data=key;
+	temp->left=NULL;
+	temp->right=NULL;
 	if(root==NULL)
 	{
-		root= (struct node*)malloc(sizeof(struct node));
-		root->data=key;
-		root->left=NULL;
-		root->right=NULL;
+		root=temp;
 		return;
 	}
-	if(key<root->data)
-		insertrec(root->left,key);
+	else
+    {
 
-	else if(key>root->data)
-		insertrec(root->right,key);
+	parent=root;
+
+
+	while(parent!=NULL)
+	{
+		if(key<parent->data)
+		{
+			if(parent->left==NULL)
+				parent->left=temp;
+
+			parent=parent->left;
+		}
+		else if(key>parent->data)
+		{
+			if(parent->right==NULL)
+				parent->right=temp;
+
+			parent=parent->right;
+		}
+	}
+
+	}
 }
+
 void inorder()
 {
 	if(root==NULL)
