@@ -113,6 +113,7 @@ void deleteByValue(int value)
 	{
 		right=head;
 
+
 		while(right->next!=NULL)
 		{
 			left=right;
@@ -126,7 +127,7 @@ void deleteByValue(int value)
                 printf("%d is deleted successfully\n\n",value );
                 confirm=1;
                 c--;
-                break;
+               
 			}
 		}
 	}
