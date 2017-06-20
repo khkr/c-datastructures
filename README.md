@@ -11,3 +11,6 @@ linked lists
 
 # 18 June
 * binary tree added doesn't work quite well though
+
+# 20 June
+* fight codechef added
