@@ -14,3 +14,6 @@ linked lists
 
 # 20 June
 * fight codechef added
+
+# 22 June
+* Towers of Hanoi
